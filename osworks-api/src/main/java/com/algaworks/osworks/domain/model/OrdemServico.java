@@ -2,6 +2,7 @@ package com.algaworks.osworks.domain.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,7 +29,7 @@ public class OrdemServico {
 	private Long id;
 	
 	@Valid // VALIDA AS PROPRIEDADES DO CLIENTE
-	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)
+	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)// VALIDA SOMENTE O ID DE CLIENTE
 	@NotNull
 	@ManyToOne
 	private Cliente cliente; // sem @JoinColumn, o padrão já é cliente(OrdemServico).id(Cliente)
@@ -44,10 +45,10 @@ public class OrdemServico {
 	private StatusOrdemServico status;
 	
 	@JsonProperty(access = Access.READ_ONLY)
-	private LocalDateTime dataAbertura;
+	private OffsetDateTime dataAbertura;
 	
 	@JsonProperty(access = Access.READ_ONLY)
-	private LocalDateTime dataFinalizacao;
+	private OffsetDateTime dataFinalizacao;
 
 	public Long getId() {
 		return id;
@@ -89,19 +90,19 @@ public class OrdemServico {
 		this.status = status;
 	}
 
-	public LocalDateTime getDataAbertura() {
+	public OffsetDateTime getDataAbertura() {
 		return dataAbertura;
 	}
 
-	public void setDataAbertura(LocalDateTime dataAbertura) {
+	public void setDataAbertura(OffsetDateTime dataAbertura) {
 		this.dataAbertura = dataAbertura;
 	}
 
-	public LocalDateTime getDataFinalizacao() {
+	public OffsetDateTime getDataFinalizacao() {
 		return dataFinalizacao;
 	}
 
-	public void setDataFinalizacao(LocalDateTime dataFinalizacao) {
+	public void setDataFinalizacao(OffsetDateTime dataFinalizacao) {
 		this.dataFinalizacao = dataFinalizacao;
 	}
 
