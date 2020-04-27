@@ -8,12 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.algaworks.osworks.domain.ValidationGroups;
 
 @Entity
 @Table(name = "cliente")
 public class Cliente {
 
+	@NotNull(groups = ValidationGroups.ClienteId.class)// SÓ VALIDA O CAMPO QUE ESTIVER NO VALIDATION GROUPS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -22,7 +26,7 @@ public class Cliente {
 	@Size(max = 60)
 	private String nome;
 	
-	@NotBlank
+	@NotBlank // ASSIM É VALIDATION DEFAULT
 	@Email
 	@Size(max = 255)
 	private String email;
