@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 public class OrdemServico {
+	//DTO -> DATA TRANSFER OBJECT
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
