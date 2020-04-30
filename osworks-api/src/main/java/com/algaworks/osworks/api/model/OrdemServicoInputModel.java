@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class OrdemServicoInputModel {
+	// VALIDANDO O REPRESENTATIONAL MODEL, ASSIM NÃO É NECESSÁRIO MANTER AS VALIDAÇÕES NO DOMAIN
 	
 	@NotBlank
 	private String descricao;
@@ -17,6 +18,7 @@ public class OrdemServicoInputModel {
 	@Valid // FAZER O CASCATEAMENTO DAS VALIDAÇÕES
 	@NotNull
 	private ClienteIdInput cliente;
+	
 	public String getDescricao() {
 		return descricao;
 	}

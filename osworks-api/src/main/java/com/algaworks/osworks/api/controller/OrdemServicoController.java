@@ -61,15 +61,16 @@ public class OrdemServicoController {
 		return ResponseEntity.notFound().build();	
 	}
 	
+	
 	private OrdemServicoModel toModel(OrdemServico ordemServico) {
 		return modelMapper.map(ordemServico, OrdemServicoModel.class);
 	}
 	
-	//CONVERTE List<OrdemServico> EM List<OrdemServicoModel>
+	//CONVERTE List<OrdemServico>  => List<OrdemServicoModel>
 	private List<OrdemServicoModel> toCollectionModel(List<OrdemServico> listaOrdensServico) {
 		return listaOrdensServico.stream()
-				.map(ordemServico -> toModel(ordemServico))
-				.collect(Collectors.toList());
+				.map(ordemServico -> toModel(ordemServico)) // PERCORRE A LISTA, TRANSFORMANDO EM OBJETO OrdemServicoModel
+				.collect(Collectors.toList());// OrdemServicoModel => List<OrdemServicoModel> 
 	}
 	
 	private OrdemServico toEntity(OrdemServicoInputModel ordemServicoInputModel) {

@@ -1,8 +1,9 @@
 package com.algaworks.osworks.domain.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,15 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.groups.ConvertGroup;
-import javax.validation.groups.Default;
+import javax.persistence.OneToMany;
 
-import com.algaworks.osworks.domain.ValidationGroups;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.algaworks.osworks.api.model.Comentario;
 
 @Entity
 public class OrdemServico {
@@ -28,29 +23,22 @@ public class OrdemServico {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Valid // VALIDA AS PROPRIEDADES DO CLIENTE
-	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)// VALIDA SOMENTE O ID DE CLIENTE
-	@NotNull
+		
 	@ManyToOne
-	private Cliente cliente; // sem @JoinColumn, o padrão já é cliente(OrdemServico).id(Cliente)
+	private Cliente cliente; // sem @JoinColumn, o padrão já é cliente(OrdemServico).id(Cliente)	
 	
-	@NotBlank
-	private String descricao;
-	
-	@NotNull
+	private String descricao;	
 	private BigDecimal preco;
-	
-	@JsonProperty(access = Access.READ_ONLY)
+		
 	@Enumerated(EnumType.STRING)
 	private StatusOrdemServico status;
 	
-	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataAbertura;
-	
-	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataFinalizacao;
 
+	@OneToMany(mappedBy = "ordemServico") // ordemServico de Comentario
+	private List<Comentario> comentarios = new ArrayList<>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -105,6 +93,15 @@ public class OrdemServico {
 
 	public void setDataFinalizacao(OffsetDateTime dataFinalizacao) {
 		this.dataFinalizacao = dataFinalizacao;
+	}	
+	
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	@Override
